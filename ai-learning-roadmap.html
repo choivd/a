@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Systems Thinking — Learning Roadmap v2</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap');
+
+  :root {
+    --ink: #0f0e0d;
+    --paper: #f5f2ec;
+    --accent: #c84b2f;
+    --accent2: #2f6bc8;
+    --green: #2a7a4b;
+    --muted: #7a7670;
+    --rule: #d8d3c8;
+    --highlight: #f0e6c8;
+    --highlight2: #dde8f5;
+    --highlight3: #d8edd6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  header {
+    border-bottom: 2px solid var(--ink);
+    padding: 48px 48px 36px;
+    position: relative;
+  }
+
+  .eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(30px, 5vw, 54px);
+    line-height: 1.1;
+    font-weight: 400;
+    max-width: 720px;
+  }
+
+  h1 em { font-style: italic; color: var(--accent); }
+
+  .subtitle {
+    margin-top: 16px;
+    color: var(--muted);
+    max-width: 560px;
+    font-size: 12px;
+    line-height: 1.8;
+  }
+
+  .meta {
+    position: absolute;
+    top: 48px;
+    right: 48px;
+    text-align: right;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    line-height: 1.9;
+  }
+
+  .principle {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 20px 48px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .principle-label {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    flex-shrink: 0;
+    border: 1px solid var(--accent);
+    padding: 2px 6px;
+  }
+
+  .loop {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .loop-step {
+    background: rgba(255,255,255,0.08);
+    padding: 4px 10px;
+    font-size: 10px;
+  }
+
+  .loop-arrow { color: var(--accent); font-size: 11px; }
+
+  .track-legend {
+    padding: 16px 48px;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .track-legend-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .tag {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    padding: 2px 8px;
+    border: 1px solid;
+  }
+
+  .tag-core { border-color: var(--ink); color: var(--ink); }
+  .tag-data { border-color: var(--accent2); color: var(--accent2); }
+  .tag-technical { border-color: var(--green); color: var(--green); }
+  .tag-ongoing { border-color: var(--accent); color: var(--accent); }
+
+  main { padding: 0 48px 80px; }
+
+  .identity-section {
+    padding: 40px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .section-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  .ladder { display: flex; flex-direction: column; max-width: 640px; }
+
+  .ladder-step {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .ladder-step:last-child { border-bottom: none; }
+
+  .ladder-num { font-size: 10px; color: var(--muted); width: 36px; flex-shrink: 0; }
+
+  .ladder-identity {
+    font-family: 'DM Serif Display', serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  .ladder-identity.dim { color: var(--muted); }
+  .ladder-identity.target { color: var(--accent); }
+
+  .phase {
+    border-bottom: 1px solid var(--rule);
+    padding: 48px 0;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 48px;
+  }
+
+  .phase:last-child { border-bottom: none; }
+  .phase-label { padding-top: 4px; }
+
+  .phase-num {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .phase-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.3;
+  }
+
+  .phase-duration {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 3px 8px;
+  }
+
+  .phase-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+
+  .phase-content h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    margin-top: 26px;
+  }
+
+  .phase-content h3:first-child { margin-top: 0; }
+
+  .phase-content > p, .phase-lede {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.8;
+  }
+
+  .topic-list { list-style: none; }
+
+  .topic-list li {
+    padding: 5px 0;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-size: 12px;
+  }
+
+  .topic-list li:last-child { border-bottom: none; }
+  .bullet { color: var(--accent); flex-shrink: 0; font-size: 9px; }
+
+  .resource-block {
+    border-left: 3px solid var(--accent);
+    background: var(--highlight);
+    padding: 14px 18px;
+    margin-top: 20px;
+  }
+
+  .resource-block.blue { background: var(--highlight2); border-left-color: var(--accent2); }
+  .resource-block.green { background: var(--highlight3); border-left-color: var(--green); }
+
+  .resource-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  .resource-block.blue .resource-label { color: var(--accent2); }
+  .resource-block.green .resource-label { color: var(--green); }
+
+  .resource-item { margin-bottom: 8px; font-size: 12px; line-height: 1.5; }
+  .resource-item:last-child { margin-bottom: 0; }
+  .resource-item strong { font-weight: 500; }
+  .resource-item .source { color: var(--muted); font-size: 11px; }
+
+  .hands-on {
+    margin-top: 20px;
+    border: 1px solid var(--ink);
+    padding: 14px 18px;
+  }
+
+  .hands-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hands-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--ink);
+  }
+
+  .exercise {
+    padding: 6px 0;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+    font-size: 12px;
+  }
+
+  .exercise:last-child { border-bottom: none; padding-bottom: 0; }
+  .ex-num { color: var(--accent); flex-shrink: 0; font-size: 10px; font-weight: 500; }
+
+  .artifact-box {
+    margin-top: 16px;
+    border: 1px solid var(--accent);
+    padding: 14px 18px;
+    background: white;
+  }
+
+  .artifact-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .artifact-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 10px;
+    line-height: 1.6;
+  }
+
+  .artifact-examples { display: flex; flex-wrap: wrap; gap: 6px; }
+
+  .artifact-chip {
+    font-size: 11px;
+    background: var(--highlight);
+    padding: 3px 8px;
+    border: 1px solid var(--rule);
+  }
+
+  .note {
+    font-size: 11px;
+    color: var(--muted);
+    font-style: italic;
+    margin-top: 14px;
+    line-height: 1.7;
+  }
+
+  .ongoing-section {
+    background: var(--ink);
+    color: var(--paper);
+    margin: 0 -48px;
+    padding: 56px 48px;
+  }
+
+  .ongoing-section h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+
+  .ongoing-section h2 em { color: var(--accent); font-style: italic; }
+
+  .ongoing-sub {
+    color: rgba(245,242,236,0.5);
+    font-size: 12px;
+    margin-bottom: 36px;
+    max-width: 540px;
+    line-height: 1.8;
+  }
+
+  .ongoing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+
+  .ongoing-card {
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 16px;
+  }
+
+  .ongoing-card-title {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .ongoing-card p {
+    font-size: 11px;
+    color: rgba(245,242,236,0.65);
+    line-height: 1.7;
+  }
+
+  .ongoing-note {
+    font-size: 11px;
+    color: rgba(245,242,236,0.4);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 18px;
+    font-style: italic;
+    line-height: 1.8;
+  }
+
+  footer {
+    border-top: 2px solid var(--ink);
+    padding: 24px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  @media (max-width: 640px) {
+    header, main { padding-left: 20px; padding-right: 20px; }
+    .meta { display: none; }
+    .phase { grid-template-columns: 1fr; gap: 20px; }
+    .principle, .track-legend { padding-left: 20px; padding-right: 20px; }
+    .ongoing-section { margin: 0 -20px; padding: 36px 20px; }
+    footer { padding: 20px; flex-direction: column; gap: 6px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Designer → AI Systems Architect</div>
+  <h1>A Learning<br><em>Roadmap</em> v2</h1>
+  <p class="subtitle">Not tool literacy. Not trend-chasing. A path toward designing systems that include humans, AI, workflows, memory, evaluation, and organizations together — with durable leverage over the next decade.</p>
+  <div class="meta">
+    <div>COMPILED 2026</div>
+    <div>7 PHASES</div>
+    <div>1 ONGOING TRACK</div>
+    <div>REVISED WITH EXPERT CRITIQUE</div>
+  </div>
+</header>
+
+<div class="principle">
+  <span class="principle-label">Core Learning Loop</span>
+  <div class="loop">
+    <span class="loop-step">Learn small concept</span>
+    <span class="loop-arrow">→</span>
+    <span class="loop-step">Build tiny thing</span>
+    <span class="loop-arrow">→</span>
+    <span class="loop-step">Fail</span>
+    <span class="loop-arrow">→</span>
+    <span class="loop-step">Investigate why</span>
+    <span class="loop-arrow">→</span>
+    <span class="loop-step">Refine mental model</span>
+    <span class="loop-arrow">→</span>
+    <span class="loop-step">Repeat</span>
+  </div>
+</div>
+
+<div class="track-legend">
+  <span class="track-legend-label">Tracks</span>
+  <span class="tag tag-core">Core Sequence</span>
+  <span class="tag tag-data">Data & Knowledge</span>
+  <span class="tag tag-technical">Technical Fluency</span>
+  <span class="tag tag-ongoing">Ongoing / Parallel</span>
+</div>
+
+<main>
+
+  <div class="identity-section">
+    <div class="section-eyebrow">Where This Takes You</div>
+    <div class="ladder">
+      <div class="ladder-step">
+        <span class="ladder-num">Now</span>
+        <span class="ladder-identity dim">Designer using AI tools</span>
+      </div>
+      <div class="ladder-step">
+        <span class="ladder-num">→</span>
+        <span class="ladder-identity">Prompt architect & AI systems thinker</span>
+      </div>
+      <div class="ladder-step">
+        <span class="ladder-num">→</span>
+        <span class="ladder-identity">AI workflow designer & evaluator</span>
+      </div>
+      <div class="ladder-step">
+        <span class="ladder-num">→</span>
+        <span class="ladder-identity">Knowledge systems & data-fluent builder</span>
+      </div>
+      <div class="ladder-step">
+        <span class="ladder-num">→</span>
+        <span class="ladder-identity target">AI systems architect — designing systems that include humans, AI, workflows, memory, evaluation, and organizations together</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 01 -->
+  <div class="phase">
+    <div class="phase-label">
+      <div class="phase-num">Phase 01</div>
+      <div class="phase-title">Mental Models</div>
+      <div class="phase-duration">4–6 weeks</div>
+      <div class="phase-tags"><span class="tag tag-core">Core</span></div>
+    </div>
+    <div class="phase-content">
+      <p class="phase-lede">How language models actually work — not math, but mechanics. You need to think in the right vocabulary before you can design around these systems.</p>
+
+      <h3>Core Topics</h3>
+      <ul class="topic-list">
+        <li><span class="bullet">▸</span> What a language model is — tokens, context windows, probability</li>
+        <li><span class="bullet">▸</span> Why models hallucinate — and what actually causes it</li>
+        <li><span class="bullet">▸</span> How temperature and parameters shape outputs</li>
+        <li><span class="bullet">▸</span> Base models vs fine-tuned models vs RLHF</li>
+        <li><span class="bullet">▸</span> What an API is and how data flows through a request</li>
+      </ul>
+
+      <div class="resource-block">
+        <div class="resource-label">Resources</div>
+        <div class="resource-item"><strong>Generative AI with Large Language Models</strong><br><span class="source">O'Reilly / DeepLearning.ai — Start here. Conceptual, not code-heavy.</span></div>
+        <div class="resource-item"><strong>"How LLMs Work" by Andrej Karpathy</strong><br><span class="source">YouTube — Free. The clearest plain-language explanation that exists.</span></div>
+        <div class="resource-item"><strong>Anthropic's Model Documentation</strong><br><span class="source">docs.anthropic.com — Free. Read how Claude is designed to behave.</span></div>
+      </div>
+
+      <div class="hands-on">
+        <div class="hands-label">Hands-On Exercises</div>
+        <div class="exercise"><span class="ex-num">01</span> Open the Anthropic or OpenAI playground. Ask the same question 5 different ways. Document what shifts in the output and why.</div>
+        <div class="exercise"><span class="ex-num">02</span> Adjust temperature from 0 to 1 on a creative prompt, then a factual one. Observe what changes at each extreme.</div>
+        <div class="exercise"><span class="ex-num">03</span> Intentionally try to make the model hallucinate. Then figure out exactly what triggered it. Understanding failure is understanding the system.</div>
+        <div class="exercise"><span class="ex-num">04</span> Count tokens with tiktokenizer.vercel.app. Get a feel for how the model actually sees text — not words, but chunks.</div>
+      </div>
+
+      <div class="artifact-box">
+        <div class="artifact-label">Phase Artifact — Build One of These</div>
+        <div class="artifact-sub">Every phase ends with a working artifact. Tiny is fine. The goal is to stop being only a consumer of models.</div>
+        <div class="artifact-examples">
+          <span class="artifact-chip">Prompt observation journal</span>
+          <span class="artifact-chip">Tokenizer visual explainer</span>
+          <span class="artifact-chip">Playground experiment log with annotations</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 02 -->
+  <div class="phase">
+    <div class="phase-label">
+      <div class="phase-num">Phase 02</div>
+      <div class="phase-title">Prompt Engineering & Context Design</div>
+      <div class="phase-duration">4–6 weeks</div>
+      <div class="phase-tags"><span class="tag tag-core">Core</span></div>
+    </div>
+    <div class="phase-content">
+      <p class="phase-lede">The hands-on craft. How to structure inputs so models produce reliable, high-quality outputs. This is where your systems thinking immediately applies.</p>
+
+      <h3>Core Topics</h3>
+      <ul class="topic-list">
+        <li><span class="bullet">▸</span> Prompt structure — roles, instructions, constraints, examples</li>
+        <li><span class="bullet">▸</span> Chain-of-thought and reasoning techniques</li>
+        <li><span class="bullet">▸</span> Few-shot vs zero-shot prompting and when to use each</li>
+        <li><span class="bullet">▸</span> Context window management — what to include, what to cut</li>
+        <li><span class="bullet">▸</span> System prompts vs user prompts vs memory</li>
+        <li><span class="bullet">▸</span> Output formatting and structured responses</li>
+      </ul>
+
+      <div class="resource-block">
+        <div class="resource-label">Resources</div>
+        <div class="resource-item"><strong>Prompt Engineering for Developers</strong><br><span class="source">DeepLearning.ai — Free. Short, practical, essential. Has interactive notebooks.</span></div>
+        <div class="resource-item"><strong>Anthropic Prompt Engineering Guide</strong><br><span class="source">docs.anthropic.com — Free. Surprisingly deep.</span></div>
+        <div class="resource-item"><strong>Prompt Engineering (O'Reilly)</strong><br><span class="source">O'Reilly — Multiple titles available. Search and pick the most recent.</span></div>
+      </div>
+
+      <div class="hands-on">
+        <div class="hands-label">Hands-On Exercises</div>
+        <div class="exercise"><span class="ex-num">01</span> Pick one real task you do weekly. Write three system prompts with different structures. Compare outputs and note what changed and why.</div>
+        <div class="exercise"><span class="ex-num">02</span> Take a prompt with bad output. Diagnose why — instruction clarity? Missing examples? Ambiguous constraints? Fix one variable at a time.</div>
+        <div class="exercise"><span class="ex-num">03</span> Add "think step by step" to a complex prompt. Compare to the same prompt without it. This is chain-of-thought in action.</div>
+        <div class="exercise"><span class="ex-num">04</span> Write a deliberately terrible prompt. Then rewrite it systematically, documenting every change and the reasoning behind each decision.</div>
+      </div>
+
+      <div class="artifact-box">
+        <div class="artifact-label">Phase Artifact — Build One of These</div>
+        <div class="artifact-sub">Build a workflow you personally use weekly. If you use it repeatedly, you learn much faster.</div>
+        <div class="artifact-examples">
+          <span class="artifact-chip">Research synthesizer</span>
+          <span class="artifact-chip">UX critique assistant</span>
+          <span class="artifact-chip">Meeting summarizer</span>
+          <span class="artifact-chip">Design pattern classifier</span>
+          <span class="artifact-chip">Portfolio reviewer</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 03 -->
+  <div class="phase">
+    <div class="phase-label">
+      <div class="phase-num">Phase 03</div>
+      <div class="phase-title">Data & Knowledge Systems</div>
+      <div class="phase-duration">4–6 weeks</div>
+      <div class="phase-tags"><span class="tag tag-data">Data & Knowledge</span></div>
+    </div>
+    <div class="phase-content">
+      <p class="phase-lede">One of the biggest gaps in most AI learning paths. AI systems are increasingly data systems. This area aligns extremely well with your systems-thinking background — taxonomy design, knowledge representation, retrieval quality.</p>
+
+      <h3>Core Topics</h3>
+      <ul class="topic-list">
+        <li><span class="bullet">▸</span> Embeddings — how meaning becomes numbers</li>
+        <li><span class="bullet">▸</span> Vector databases — how AI stores and retrieves knowledge</li>
+        <li><span class="bullet">▸</span> Chunking strategies — how documents get split for retrieval</li>
+        <li><span class="bullet">▸</span> Metadata design and taxonomy thinking</li>
+        <li><span class="bullet">▸</span> Retrieval quality — precision, recall, relevance</li>
+        <li><span class="bullet">▸</span> Knowledge graphs and ontologies</li>
+        <li><span class="bullet">▸</span> Synthetic data generation</li>
+        <li><span class="bullet">▸</span> Annotation, labeling, and evaluation datasets</li>
+      </ul>
+
+      <div class="resource-block blue">
+        <div class="resource-label">Resources</div>
+        <div class="resource-item"><strong>LangChain & Vector Databases in Production</strong><br><span class="source">O'Reilly — Covers RAG and retrieval architecture conceptually.</span></div>
+        <div class="resource-item"><strong>Building RAG Applications</strong><br><span class="source">DeepLearning.ai — Free. Practical and conceptual with hands-on notebooks.</span></div>
+        <div class="resource-item"><strong>Knowledge Graphs (O'Reilly)</strong><br><span class="source">O'Reilly — For the structural, taxonomic thinking layer.</span></div>
+      </div>
+
+      <div class="hands-on">
+        <div class="hands-label">Hands-On Exercises</div>
+        <div class="exercise"><span class="ex-num">01</span> Take one document. Chunk it three ways — by sentence, by paragraph, by semantic topic. Ask the same question against each. Compare what gets retrieved.</div>
+        <div class="exercise"><span class="ex-num">02</span> Design a tagging schema and taxonomy for a knowledge base you actually use. Think about relationships, hierarchy, and edge cases.</div>
+        <div class="exercise"><span class="ex-num">03</span> Manually create a small eval dataset: 20 question-answer pairs from a document. This is the foundation of evaluation thinking.</div>
+        <div class="exercise"><span class="ex-num">04</span> Test retrieval quality qualitatively — ask 10 questions, score whether the retrieved context actually answers each one. Where does it fail and why?</div>
+      </div>
+
+      <div class="artifact-box">
+        <div class="artifact-label">Phase Artifact — Build One of These</div>
+        <div class="artifact-examples">
+          <span class="artifact-chip">Tagging schema for your Obsidian vault</span>
+          <span class="artifact-chip">Knowledge taxonomy with relationship map</span>
+          <span class="artifact-chip">Chunking strategy comparison document</span>
+          <span class="artifact-chip">Eval dataset (20+ Q&A pairs)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 04 -->
+  <div class="phase">
+    <div class="phase-label">
+      <div class="phase-num">Phase 04</div>
+      <div class="phase-title">Technical Fluency for AI Builders</div>
+      <div class="phase-duration">6–8 weeks</div>
+      <div class="phase-tags"><span class="tag tag-technical">Technical</span></div>
+    </div>
+    <div class="phase-content">
+      <p class="phase-lede">You don't need to become a software engineer. But people with disproportionate leverage now are technical enough to build, orchestrate, and automate independently. Without this, you remain dependent on engineers for execution.</p>
+
+      <h3>Core Topics</h3>
+      <ul class="topic-list">
+        <li><span class="bullet">▸</span> JSON — reading and writing structured data</li>
+        <li><span class="bullet">▸</span> REST APIs — how services communicate</li>
+        <li><span class="bullet">▸</span> Python basics — enough to prototype and test ideas</li>
+        <li><span class="bullet">▸</span> Webhooks and authentication concepts</li>
+        <li><span class="bullet">▸</span> Parsing and transforming structured AI outputs</li>
+        <li><span class="bullet">▸</span> Local vs cloud execution</li>
+        <li><span class="bullet">▸</span> Git / GitHub — version control basics</li>
+        <li><span class="bullet">▸</span> AI SDK basics — calling models programmatically</li>
+      </ul>
+
+      <p class="note">Key distinction: you need operational fluency, not computer science. These are very different things.</p>
+
+      <div class="resource-block green">
+        <div class="resource-label">Resources</div>
+        <div class="resource-item"><strong>Python for Everybody</strong><br><span class="source">O'Reilly / Coursera — The gentlest Python on-ramp. Start here.</span></div>
+        <div class="resource-item"><strong>APIs for Beginners (freeCodeCamp)</strong><br><span class="source">YouTube — Free. Clear, practical introduction to how APIs work.</span></div>
+        <div class="resource-item"><strong>Anthropic & OpenAI API Quickstarts</strong><br><span class="source">Official docs — Free. Getting-started guides with real, runnable code.</span></div>
+      </div>
+
+      <div class="hands-on">
+        <div class="hands-label">Hands-On Exercises</div>
+        <div class="exercise"><span class="ex-num">01</span> Call the Anthropic or OpenAI API directly from code — not a UI. See the raw request and response JSON. Read it.</div>
+        <div class="exercise"><span class="ex-num">02</span> Build a tiny Streamlit app — one text input, one AI call, one output. Deploy it. Show it to one person.</div>
+        <div class="exercise"><span class="ex-num">03</span> Connect two services — Airtable or Notion to an AI call. Parse the output and write it somewhere else.</div>
+        <div class="exercise"><span class="ex-num">04</span> Build a simple agent workflow in code: one tool call, one decision, one output. Understand what "orchestration" actually means technically.</div>
+      </div>
+
+      <div class="artifact-box">
+        <div class="artifact-label">Phase Artifact — Deploy Something Real</div>
+        <div class="artifact-sub">Not polished. Not startup-grade. Just real and publicly accessible. The moment strangers use your thing, your learning curve changes dramatically.</div>
+        <div class="artifact-examples">
+          <span class="artifact-chip">RAG chatbot over your Obsidian vault</span>
+          <span class="artifact-chip">AI design critique tool</span>
+          <span class="artifact-chip">User interview → JTBD converter</span>
+          <span class="artifact-chip">Heuristic evaluator</span>
+          <span class="artifact-chip">"Explain this product flow" tool</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 05 -->
+  <div class="phase">
+    <div class="phase-label">
+      <div class="phase-num">Phase 05</div>
+      <div class="phase-title">AI Systems Architecture</div>
+      <div class="phase-duration">6–8 weeks</div>
+      <div class="phase-tags"><span class="tag tag-core">Core</span></div>
+    </div>
+    <div class="phase-content">
+      <p class="phase-lede">How multiple AI components fit together into a working system. Your design instinct for relationships between building blocks becomes a direct advantage here.</p>
+
+      <h3>Core Topics</h3>
+      <ul class="topic-list">
+        <li><span class="bullet">▸</span> RAG — giving AI access to real, up-to-date data</li>
+        <li><span class="bullet">▸</span> AI agents and multi-step reasoning flows</li>
+        <li><span class="bullet">▸</span> Memory — short-term, long-term, external stores</li>
+        <li><span class="bullet">▸</span> Tool use — how AI calls external functions</li>
+        <li><span class="bullet">▸</span> Chaining models — orchestrating multiple AI calls</li>
+        <li><span class="bullet">▸</span> Guardrails, fallbacks, and safety layers</li>
+        <li><span class="bullet">▸</span> Latency, cost, and reliability trade-offs in production</li>
+      </ul>
+
+      <div class="resource-block">
+        <div class="resource-label">Resources</div>
+        <div class="resource-item"><strong>Building Systems with the ChatGPT API</strong><br><span class="source">DeepLearning.ai — Free. Great for understanding chaining and workflows.</span></div>
+        <div class="resource-item"><strong>Designing Large Language Model Applications</strong><br><span class="source">O'Reilly — Systems-focused, less code. Closest to your angle.</span></div>
+        <div class="resource-item"><strong>AI Engineering — Chip Huyen</strong><br><span class="source">O'Reilly — The most comprehensive book on production AI systems.</span></div>
+      </div>
+
+      <div class="hands-on">
+        <div class="hands-label">Hands-On Exercises</div>
+        <div class="exercise"><span class="ex-num">01</span> Use Flowise or LangFlow (free, visual, no-code) to build a RAG pipeline. Upload a document, ask questions. Watch how retrieval actually works.</div>
+        <div class="exercise"><span class="ex-num">02</span> Map an existing AI product as a system diagram — inputs, outputs, memory, tools, guardrails. Identify what you don't know and research it.</div>
+        <div class="exercise"><span class="ex-num">03</span> Design a multi-step workflow on paper — what passes forward at each step, where things could break. Then build it with a no-code tool.</div>
+        <div class="exercise"><span class="ex-num">04</span> Find a public AI system that fails in an interesting way. Hypothesize the architecture and where the failure originates. Write it up.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 06 -->
+  <div class="phase">
+    <div class="phase-label">
+      <div class="phase-num">Phase 06</div>
+      <div class="phase-title">Evaluation & Quality Thinking</div>
+      <div class="phase-duration">Ongoing from Phase 02</div>
+      <div class="phase-tags"><span class="tag tag-core">Core</span></div>
+    </div>
+    <div class="phase-content">
+      <p class="phase-lede">The layer most people skip. How do you actually know if an AI system is working? This is where rigor separates serious practitioners from tinkerers — and where your design instinct for quality translates directly.</p>
+
+      <h3>Core Topics</h3>
+      <ul class="topic-list">
+        <li><span class="bullet">▸</span> Evaluation metrics — defining what "good output" actually means</li>
+        <li><span class="bullet">▸</span> Red-teaming — systematically finding failure modes</li>
+        <li><span class="bullet">▸</span> Human feedback loops and RLHF concepts</li>
+        <li><span class="bullet">▸</span> A/B testing AI outputs with scoring rubrics</li>
+        <li><span class="bullet">▸</span> Building evals — writing repeatable tests for AI behavior</li>
+        <li><span class="bullet">▸</span> Monitoring and regression tracking in production</li>
+      </ul>
+
+      <div class="resource-block">
+        <div class="resource-label">Resources</div>
+        <div class="resource-item"><strong>Evaluating and Debugging Generative AI</strong><br><span class="source">DeepLearning.ai — Free. Exactly this topic.</span></div>
+        <div class="resource-item"><strong>AI Engineering — Evals Chapter (Chip Huyen)</strong><br><span class="source">O'Reilly — The evals chapter alone is worth the book.</span></div>
+        <div class="resource-item"><strong>Anthropic's Evals Framework</strong><br><span class="source">GitHub / docs — Free. See how professional evaluation actually works.</span></div>
+      </div>
+
+      <div class="hands-on">
+        <div class="hands-label">Hands-On Exercises</div>
+        <div class="exercise"><span class="ex-num">01</span> Pick a prompt from Phase 02. Write 10 test cases — inputs with expected outputs. Run them. Score each one. This is an eval.</div>
+        <div class="exercise"><span class="ex-num">02</span> Red-team your own prompt system for 30 minutes — edge cases, weird inputs, adversarial phrasing. Document every failure mode.</div>
+        <div class="exercise"><span class="ex-num">03</span> Run two prompt versions on 10 identical inputs. Build a scoring rubric. Judge which performs better and write up exactly why.</div>
+        <div class="exercise"><span class="ex-num">04</span> Define what "good" looks like for one specific AI task in concrete, measurable terms. This is harder than it sounds — and it's the most important skill in this phase.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 07 -->
+  <div class="phase">
+    <div class="phase-label">
+      <div class="phase-num">Phase 07</div>
+      <div class="phase-title">Human Systems & Organizational Dynamics</div>
+      <div class="phase-duration">Parallel / Long-term</div>
+      <div class="phase-tags"><span class="tag tag-ongoing">Ongoing</span></div>
+    </div>
+    <div class="phase-content">
+      <p class="phase-lede">This may become your strongest long-term advantage. Most AI practitioners are technically capable but weak at organizational behavior, adoption friction, and human coordination. Enterprises struggle with exactly these things.</p>
+
+      <h3>Core Topics</h3>
+      <ul class="topic-list">
+        <li><span class="bullet">▸</span> AI governance and policy within organizations</li>
+        <li><span class="bullet">▸</span> Change management — why AI adoption fails and how to fix it</li>
+        <li><span class="bullet">▸</span> AI UX trust models — how humans calibrate trust in AI outputs</li>
+        <li><span class="bullet">▸</span> Human-in-the-loop system design</li>
+        <li><span class="bullet">▸</span> Workflow redesign around AI capabilities</li>
+        <li><span class="bullet">▸</span> Decision-support systems — when AI aids vs when it decides</li>
+        <li><span class="bullet">▸</span> Socio-technical systems — human and technical together</li>
+        <li><span class="bullet">▸</span> Incentive mapping — why people resist or adopt new systems</li>
+      </ul>
+
+      <p class="note">A designer who understands AI systems + human systems + organizational systems simultaneously is very hard to replace. This is where "designer" evolves into "systems architect."</p>
+
+      <div class="resource-block">
+        <div class="resource-label">Resources</div>
+        <div class="resource-item"><strong>Thinking in Systems — Donella Meadows</strong><br><span class="source">Book — The foundational text for systems thinking applied to human organizations.</span></div>
+        <div class="resource-item"><strong>AI and the Future of Work (O'Reilly)</strong><br><span class="source">O'Reilly — Organizational and human dimensions of AI adoption.</span></div>
+        <div class="resource-item"><strong>Human + Machine — Daugherty & Wilson</strong><br><span class="source">Book — How AI and human roles actually get redesigned together in organizations.</span></div>
+      </div>
+
+      <div class="hands-on">
+        <div class="hands-label">Hands-On Exercises</div>
+        <div class="exercise"><span class="ex-num">01</span> Map an AI adoption failure you've observed. What were the human, organizational, and technical factors? Where did the system break?</div>
+        <div class="exercise"><span class="ex-num">02</span> Design a human-in-the-loop workflow for a high-stakes decision. Where does AI assist? Where does a human have final say? Justify each boundary.</div>
+        <div class="exercise"><span class="ex-num">03</span> Interview three people about how they actually use AI at work vs how they're supposed to. Document the gap. That gap is your design space.</div>
+        <div class="exercise"><span class="ex-num">04</span> Write a one-page AI governance brief for a fictional org introducing AI to a sensitive workflow. What rules, checks, and human roles would you define?</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<div class="ongoing-section">
+  <h2>Ongoing Track —<br><em>Public Thinking & Reputation</em></h2>
+  <p class="ongoing-sub">AI dramatically lowers production cost. Strategic advantage shifts toward taste, framing, synthesis, audience trust, and domain expertise. Building in public compounds over time in ways that private learning does not.</p>
+
+  <div class="ongoing-grid">
+    <div class="ongoing-card">
+      <div class="ongoing-card-title">Teardown</div>
+      <p>Analyze a real AI product or system. What's the architecture? Where does it fail? What design thinking is behind it?</p>
+    </div>
+    <div class="ongoing-card">
+      <div class="ongoing-card-title">Systems Diagram</div>
+      <p>Map something — a workflow, a product, an AI pipeline. Make the invisible structure visible.</p>
+    </div>
+    <div class="ongoing-card">
+      <div class="ongoing-card-title">Workflow Experiment</div>
+      <p>Test something. Run a before/after. Document the result honestly — including where it failed.</p>
+    </div>
+    <div class="ongoing-card">
+      <div class="ongoing-card-title">AI Critique</div>
+      <p>Apply your design and systems thinking to evaluate a real AI product. What would you change and why?</p>
+    </div>
+    <div class="ongoing-card">
+      <div class="ongoing-card-title">Prototype</div>
+      <p>Build something tiny. Share it. The feedback loop from real users is irreplaceable.</p>
+    </div>
+    <div class="ongoing-card">
+      <div class="ongoing-card-title">Evaluation Framework</div>
+      <p>Design a rubric for evaluating AI quality in a specific context. Share your criteria and reasoning publicly.</p>
+    </div>
+  </div>
+
+  <p class="ongoing-note">Not for content creation. For thinking clarity and compounding reputation. One output per month is enough. The goal is to become "person with a distinct point of view on AI systems" — not just "person who knows AI."</p>
+</div>
+
+<footer>
+  <span>AI SYSTEMS THINKING ROADMAP V2</span>
+  <span>7 PHASES + 1 ONGOING TRACK</span>
+</footer>
+
+</body>
+</html>
