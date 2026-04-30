@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learning in Public — AI Systems Thinking</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/16.3.0/lib/marked.umd.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap');
+
+  :root {
+    --ink: #0f0e0d;
+    --paper: #f5f2ec;
+    --accent: #c84b2f;
+    --accent2: #2f6bc8;
+    --green: #2a7a4b;
+    --muted: #7a7670;
+    --rule: #d8d3c8;
+    --highlight: #f0e6c8;
+    --highlight2: #dde8f5;
+    --highlight3: #d8edd6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--ink);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 48px;
+    height: 48px;
+  }
+
+  .nav-brand {
+    color: var(--paper);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+
+  .nav-links a {
+    color: rgba(245,242,236,0.5);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--paper); }
+
+  /* HERO */
+  .hero {
+    padding: 80px 48px 64px;
+    border-bottom: 2px solid var(--ink);
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: 48px;
+    align-items: end;
+  }
+
+  .hero-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(36px, 6vw, 68px);
+    line-height: 1.0;
+    font-weight: 400;
+  }
+
+  h1 em { font-style: italic; color: var(--accent); }
+
+  .hero-sub {
+    margin-top: 20px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.9;
+    max-width: 480px;
+  }
+
+  .hero-stats {
+    border-left: 1px solid var(--rule);
+    padding-left: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px;
+    line-height: 1;
+  }
+
+  .stat-num span { color: var(--accent); }
+
+  .stat-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 64px 48px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    font-weight: 400;
+  }
+
+  .section-title em { font-style: italic; color: var(--accent); }
+  .section-meta { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+
+  /* ROADMAP */
+  .phase-row {
+    display: grid;
+    grid-template-columns: 48px 180px 1fr 80px;
+    gap: 24px;
+    align-items: start;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .phase-row:last-child { border-bottom: none; }
+
+  .phase-index {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--rule);
+    line-height: 1.2;
+  }
+
+  .phase-row.active .phase-index { color: var(--accent); }
+  .phase-row.done .phase-index { color: var(--green); }
+
+  .tag {
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border: 1px solid;
+    display: inline-block;
+    margin-bottom: 5px;
+  }
+
+  .tag-core { border-color: var(--ink); color: var(--ink); }
+  .tag-data { border-color: var(--accent2); color: var(--accent2); }
+  .tag-technical { border-color: var(--green); color: var(--green); }
+  .tag-ongoing { border-color: var(--accent); color: var(--accent); }
+
+  .phase-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.3;
+  }
+
+  .phase-duration { font-size: 10px; color: var(--muted); margin-top: 3px; }
+  .phase-desc { font-size: 12px; color: var(--muted); line-height: 1.7; padding-top: 3px; }
+
+  .phase-status { text-align: right; padding-top: 4px; }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1px solid var(--rule);
+    display: inline-block;
+    margin-bottom: 4px;
+  }
+
+  .phase-row.active .status-dot { background: var(--accent); border-color: var(--accent); }
+  .phase-row.done .status-dot { background: var(--green); border-color: var(--green); }
+
+  .status-label { display: block; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .phase-row.active .status-label { color: var(--accent); }
+  .phase-row.done .status-label { color: var(--green); }
+
+  /* LOG */
+  .log-instructions {
+    background: var(--highlight);
+    border-left: 3px solid var(--accent);
+    padding: 16px 20px;
+    margin-bottom: 32px;
+    font-size: 12px;
+    line-height: 1.8;
+    color: var(--muted);
+  }
+
+  .log-instructions strong { color: var(--ink); font-weight: 500; }
+  .log-instructions code {
+    background: rgba(0,0,0,0.06);
+    padding: 1px 5px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+  }
+
+  /* Rendered markdown entries */
+  #entries-container h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    font-weight: 400;
+    margin-top: 40px;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink);
+  }
+
+  #entries-container h2:first-child { margin-top: 0; }
+
+  #entries-container p {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.9;
+    margin-bottom: 12px;
+  }
+
+  #entries-container strong { color: var(--ink); font-weight: 500; }
+
+  #entries-container hr {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 28px 0;
+  }
+
+  #entries-container ul, #entries-container ol {
+    padding-left: 20px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.9;
+    margin-bottom: 12px;
+  }
+
+  #entries-container blockquote {
+    border-left: 3px solid var(--accent);
+    padding-left: 16px;
+    color: var(--muted);
+    font-style: italic;
+    margin: 16px 0;
+  }
+
+  #entries-container code {
+    background: rgba(0,0,0,0.06);
+    padding: 1px 5px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+  }
+
+  #entries-container pre {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 16px;
+    overflow-x: auto;
+    margin: 16px 0;
+    font-size: 11px;
+    line-height: 1.6;
+  }
+
+  #entries-container pre code {
+    background: none;
+    padding: 0;
+    color: var(--paper);
+  }
+
+  .loading {
+    padding: 48px 0;
+    color: var(--muted);
+    font-size: 12px;
+    font-style: italic;
+  }
+
+  .empty-state {
+    padding: 48px 0;
+    color: var(--muted);
+  }
+
+  .empty-state-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--rule);
+    margin-bottom: 8px;
+    font-weight: 400;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+
+  .about-block h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 12px;
+  }
+
+  .about-block p { font-size: 12px; color: var(--muted); line-height: 1.9; }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    color: rgba(245,242,236,0.4);
+    padding: 24px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  footer span:first-child { color: rgba(245,242,236,0.7); }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 48px 20px; }
+    .hero-stats { border-left: none; border-top: 1px solid var(--rule); padding-left: 0; padding-top: 24px; flex-direction: row; gap: 24px; }
+    section { padding: 48px 20px; }
+    .phase-row { grid-template-columns: 36px 1fr; }
+    .phase-desc, .phase-status { display: none; }
+    .about-grid { grid-template-columns: 1fr; gap: 28px; }
+    footer { padding: 20px; flex-direction: column; gap: 6px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-brand">Learning in Public</a>
+  <ul class="nav-links">
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#log">Log</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div>
+    <div class="hero-eyebrow">A designer learning AI systems thinking</div>
+    <h1>Learning<br>in <em>Public</em></h1>
+    <p class="hero-sub">I'm a designer building deep expertise in the structural and technical side of AI — context engineering, system architecture, evaluation, knowledge design. This site documents what I'm learning, where I'm stuck, and what I'm building.</p>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="stat-num">1<span>/7</span></div>
+      <div class="stat-label">Current Phase</div>
+    </div>
+    <div>
+      <div class="stat-num" id="stat-entries">—</div>
+      <div class="stat-label">Log Entries</div>
+    </div>
+  </div>
+</div>
+
+<!-- ROADMAP -->
+<section id="roadmap">
+  <div class="section-header">
+    <h2 class="section-title">The <em>Roadmap</em></h2>
+    <span class="section-meta">7 Phases · Flexible Timeline</span>
+  </div>
+
+  <div class="phases-grid">
+    <div class="phase-row active">
+      <div class="phase-index">01</div>
+      <div>
+        <span class="tag tag-core">Core</span>
+        <div class="phase-name">Mental Models</div>
+        <div class="phase-duration">1–2 weeks</div>
+      </div>
+      <div class="phase-desc">Tokens, context windows, hallucination, temperature. The vocabulary before the craft.</div>
+      <div class="phase-status"><div class="status-dot"></div><span class="status-label">Active</span></div>
+    </div>
+
+    <div class="phase-row">
+      <div class="phase-index">02</div>
+      <div>
+        <span class="tag tag-core">Core</span>
+        <div class="phase-name">Prompt Engineering & Context Design</div>
+        <div class="phase-duration">1–2 weeks</div>
+      </div>
+      <div class="phase-desc">Roles, constraints, chain-of-thought, context window management.</div>
+      <div class="phase-status"><div class="status-dot"></div><span class="status-label">Up next</span></div>
+    </div>
+
+    <div class="phase-row">
+      <div class="phase-index">03</div>
+      <div>
+        <span class="tag tag-data">Data & Knowledge</span>
+        <div class="phase-name">Data & Knowledge Systems</div>
+        <div class="phase-duration">1–2 weeks</div>
+      </div>
+      <div class="phase-desc">Embeddings, vector databases, chunking, taxonomy design, retrieval quality.</div>
+      <div class="phase-status"><div class="status-dot"></div><span class="status-label">Upcoming</span></div>
+    </div>
+
+    <div class="phase-row">
+      <div class="phase-index">04</div>
+      <div>
+        <span class="tag tag-technical">Technical</span>
+        <div class="phase-name">Technical Fluency for AI Builders</div>
+        <div class="phase-duration">1–2 weeks</div>
+      </div>
+      <div class="phase-desc">JSON, APIs, Python basics, Git. Enough to build and orchestrate independently.</div>
+      <div class="phase-status"><div class="status-dot"></div><span class="status-label">Upcoming</span></div>
+    </div>
+
+    <div class="phase-row">
+      <div class="phase-index">05</div>
+      <div>
+        <span class="tag tag-core">Core</span>
+        <div class="phase-name">AI Systems Architecture</div>
+        <div class="phase-duration">1–2 weeks</div>
+      </div>
+      <div class="phase-desc">RAG, agents, memory, tool use, chaining. How components fit into working systems.</div>
+      <div class="phase-status"><div class="status-dot"></div><span class="status-label">Upcoming</span></div>
+    </div>
+
+    <div class="phase-row">
+      <div class="phase-index">06</div>
+      <div>
+        <span class="tag tag-core">Core</span>
+        <div class="phase-name">Evaluation & Quality Thinking</div>
+        <div class="phase-duration">Ongoing</div>
+      </div>
+      <div class="phase-desc">Metrics, red-teaming, evals, A/B testing. How do you know if it's actually working?</div>
+      <div class="phase-status"><div class="status-dot"></div><span class="status-label">Upcoming</span></div>
+    </div>
+
+    <div class="phase-row">
+      <div class="phase-index">07</div>
+      <div>
+        <span class="tag tag-ongoing">Ongoing</span>
+        <div class="phase-name">Human Systems & Organizational Dynamics</div>
+        <div class="phase-duration">Parallel / Long-term</div>
+      </div>
+      <div class="phase-desc">AI governance, change management, trust models, human-in-the-loop design.</div>
+      <div class="phase-status"><div class="status-dot"></div><span class="status-label">Upcoming</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- LOG -->
+<section id="log">
+  <div class="section-header">
+    <h2 class="section-title">Learning <em>Log</em></h2>
+    <span class="section-meta" id="log-meta">Loading...</span>
+  </div>
+
+  <div class="log-instructions">
+    <strong>How to add entries:</strong> Edit <code>entries.md</code> in your GitHub repo. Add a new <code>## Phase 0X</code> heading with a date and your notes. Push to GitHub — this page updates automatically.
+  </div>
+
+  <div id="entries-container">
+    <div class="loading">Loading entries...</div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header">
+    <h2 class="section-title">About This <em>Site</em></h2>
+    <span class="section-meta">Why I'm doing this</span>
+  </div>
+  <div class="about-grid">
+    <div class="about-block">
+      <h3>The goal</h3>
+      <p>I'm a designer building deep expertise in how AI actually works — not just using it. Context engineering, system architecture, evaluation, knowledge design. The goal is to eventually design systems that include humans, AI, workflows, memory, and organizations together.</p>
+    </div>
+    <div class="about-block">
+      <h3>Why in public</h3>
+      <p>Learning in public creates useful pressure. It forces clarity — you can't document something you don't actually understand. And it builds a visible trail of genuine thinking over time. This site is accountability infrastructure, not a portfolio.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Learning in Public</span>
+  <span>Built to document, not to impress.</span>
+</footer>
+
+<script>
+  async function loadEntries() {
+    const container = document.getElementById('entries-container');
+    const meta = document.getElementById('log-meta');
+
+    try {
+      // Fetch entries.md relative to the HTML file
+      const res = await fetch('./entries.md');
+      if (!res.ok) throw new Error('Could not load entries.md');
+      const text = await res.text();
+
+      // Parse markdown to HTML
+      const html = marked.parse(text);
+      container.innerHTML = html;
+
+      // Count H2 headings as entries
+      const headings = container.querySelectorAll('h2');
+      const count = headings.length;
+      meta.textContent = count + (count === 1 ? ' entry' : ' entries');
+      document.getElementById('stat-entries').textContent = count;
+
+      // Remove the "Learning Log" h1 if present
+      const h1 = container.querySelector('h1');
+      if (h1) h1.remove();
+
+      // Remove comment nodes (HTML comments from markdown)
+      container.innerHTML = container.innerHTML.replace(/<!--[\s\S]*?-->/g, '');
+
+      // Show empty state if no entries
+      if (count === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-title">No entries yet.</div>
+            <div>Edit entries.md in your GitHub repo to add your first log entry.</div>
+          </div>`;
+        meta.textContent = '0 entries';
+      }
+
+    } catch (err) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-title">entries.md not found.</div>
+          <div>Make sure entries.md is in the same folder as this HTML file in your GitHub repo.</div>
+        </div>`;
+      meta.textContent = '—';
+    }
+  }
+
+  loadEntries();
+</script>
+
+</body>
+</html>
